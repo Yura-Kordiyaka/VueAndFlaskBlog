@@ -9,7 +9,7 @@
         <p><strong>Знайдено всього збігів :</strong> {{ items.length }}</p>
         <ul v-for="(item,index) in items" :key="index">
           <li>
-            <strong class="count">{{index +1}}</strong><br><br>
+            <strong class="count">{{ index + 1 }}</strong><br><br>
             <strong v-if="!item.name">name : -</strong>
             <strong v-else>name : </strong>{{ item.name }}<br>
             <strong v-if="!item.display_name">display_name : -</strong>
@@ -47,9 +47,9 @@ export default {
   },
   methods: {
     getData() {
-      setTimeout(() => axios.get(`https://api.github.com/search/topics?q=${this.query}`)
+      setTimeout(() => axios.get(`/getdata`, {params: {query: this.query}})
           .then(response => {
-            this.items = response.data.items
+            this.items = response.data.episodes.items
           })
           .catch(err => {
             console.log(err)
@@ -75,7 +75,7 @@ export default {
 
 <style scoped>
 
-.count{
+.count {
   font-size: 30px;
 }
 
