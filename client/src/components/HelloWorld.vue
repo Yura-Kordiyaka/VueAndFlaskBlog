@@ -36,7 +36,6 @@
 
 <script>
 import axios from 'axios'
-
 export default {
   name: 'HelloWorld',
   data() {
@@ -69,43 +68,33 @@ export default {
     }
   }
 }
-
 </script>
 
 
 <style scoped>
-
 .count {
   font-size: 30px;
 }
-
-
 .container {
   text-align: center;
-
 }
-
 strong {
   text-align: end;
 }
-
 .select2-container {
   margin-top: 40px;
 }
-
 input {
   padding: 10px;
   border-radius: 4px;
   width: 50%;
   background: lightseagreen;
 }
-
 li {
   padding: 10px;
   list-style: none;
   text-align: start;
 }
-
 ul {
   margin-left: auto;
   margin-right: auto;
@@ -113,6 +102,4 @@ ul {
   width: 40%;
   border: 3px solid lightseagreen;
 }
-
-
 </style>
