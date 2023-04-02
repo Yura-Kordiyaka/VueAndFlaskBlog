@@ -25,6 +25,8 @@ with app.app_context():
     from tables.UserDb import *
     from tables.Post import *
     from tables.Coment import *
+    from tables.Likes import *
+    from tables.Dislike import *
 
     db.create_all()
 
@@ -101,7 +103,7 @@ def login():
         return jsonify({'token': token.decode('UTF-8'),
                         'status': 'successfully'})
     else:
-        return 'Error'
+        return jsonify({'error': 'user not found'})
 
 
 @app.route('/CreatePost', methods=['POST'])
@@ -112,11 +114,10 @@ def CreatePost(user):
     name_of_post = data.get('name_of_post')
     text_of_post = data.get('text_of_post')
     category_of_post = data.get('category_of_post')
-
     # тут має бути session і передавати сесію потрібно
     if user:
-        post = Post(user_id=user.id, name_of_post=name_of_post, text_of_post=text_of_post,
-                    category=category_of_post, like=0, dislike=0)
+        post = Post(user_id=user.id, like=0, dislike=0, name_of_post=name_of_post, text_of_post=text_of_post,
+                    category=category_of_post)
         db.session.add(post)
         db.session.commit()
         return jsonify({"status": "successfully"})
@@ -128,7 +129,8 @@ def CreatePost(user):
 @token_required
 def ShowAllPost(user):
     user = user
-    all_post = Post.query.all()
+    # all_post = Post.query.all()
+    all_post = Post.query.order_by(Post.like.desc()).all()
     all_post = [
         item.to_dict() for item in all_post]
     comment = Coment.query.all()
@@ -142,35 +144,88 @@ def ShowAllPost(user):
 @token_required
 def ShowMyPost(user):
     user = user
-    my_post = Post.query.filter_by(user_id=user.id)
+    my_post = Post.query.filter_by(user_id=user.id).order_by(Post.like.desc()).all()
     my_post = [item.to_dict() for item in my_post]
     return jsonify(my_post)
 
 
+@app.route('/GetAllCetegory')
+def GetAllCatetegory():
+    post = Post.query.all()
+    all_category = [str(category.category) for category in post]
+    unique_category = set(all_category)
+    all_category = [str(category) for category in unique_category]
+    return jsonify({'all_category': all_category})
+
+
+@app.route('/GetPostsWithConcreateCategory', methods=['GET'])
+def GetPostsWithConcreateCategory():
+    concreate_category = str(request.args.get('category'))
+    post = Post.query.filter_by(category=concreate_category).order_by(Post.like.desc()).all()
+    all_post = [post.to_dict() for post in post]
+    return jsonify({'all_post': all_post})
+
+
 @app.route('/AddLike', methods=['POST'])
-def AddLike():
-    id = request.args.get('id')
-    post = Post.query.filter_by(id=int(id)).first()
-    post.like += 1
-    db.session.add(post)
-    db.session.commit()
-    all_post = Post.query.all()
-    my_post = [
-        item.to_dict() for item in all_post]
-    return jsonify(my_post)
+@token_required
+def AddLike(user):
+    user = user
+    post_id = request.args.get('post_id')
+    # post = Post.query.filter_by(id=int(id)).first()
+    like = Likes.query.filter_by(post_id=post_id, user_id=user.id).first()
+    dislike = Dislike.query.filter_by(post_id=post_id, user_id=user.id).first()
+    if like:
+        post = Post.query.filter_by(id=int(post_id)).first()
+        if post.like == 0:
+            post.like = 0
+        else:
+            post.like = post.like - like.like
+        db.session.delete(like)
+        db.session.add(post)
+        db.session.commit()
+        return jsonify({'post': post.to_dict()})
+    elif dislike:
+        return jsonify({'error': 'you had added like before'})
+    else:
+        like_add = Likes(post_id=post_id, user_id=user.id, like=1)
+        db.session.add(like_add)
+        db.session.commit()
+        post = Post.query.filter_by(id=int(post_id)).first()
+        post.like += like_add.like
+        db.session.add(post)
+        db.session.commit()
+        return jsonify({'post': post.to_dict()})
 
 
 @app.route('/AddDislike', methods=['POST'])
-def AddDislike():
-    id = request.args.get('id')
-    post = Post.query.filter_by(id=int(id)).first()
-    post.dislike += 1
-    db.session.add(post)
-    db.session.commit()
-    all_post = Post.query.all()
-    my_post = [
-        item.to_dict() for item in all_post]
-    return jsonify(my_post)
+@token_required
+def AddDislike(user):
+    user = user
+    post_id = request.args.get('post_id')
+    # post = Post.query.filter_by(id=int(id)).first()
+    dislike = Dislike.query.filter_by(post_id=post_id, user_id=user.id).first()
+    like = Likes.query.filter_by(post_id=post_id, user_id=user.id).first()
+    if dislike:
+        post = Post.query.filter_by(id=int(post_id)).first()
+        if post.dislike == 0:
+            post.dislike = 0
+        else:
+            post.dislike = post.dislike - dislike.dislike
+        db.session.delete(dislike)
+        db.session.add(post)
+        db.session.commit()
+        return jsonify({'post': post.to_dict()})
+    elif like:
+        return jsonify({'error': 'you had added like before'})
+    else:
+        dislike_add = Dislike(post_id=post_id, user_id=user.id, dislike=1)
+        db.session.add(dislike_add)
+        db.session.commit()
+        post = Post.query.filter_by(id=int(post_id)).first()
+        post.dislike += dislike_add.dislike
+        db.session.add(post)
+        db.session.commit()
+        return jsonify({'post': post.to_dict()})
 
 
 @app.route('/EditPost', methods=['GET', 'POST'])
@@ -196,13 +251,20 @@ def EditPost():
 
 
 @app.route('/AddComent', methods=['POST'])
-def AddComent():
+@token_required
+def AddComent(user):
+    user = user
     post_id = request.args.get('id')
     text_of_comment = request.args.get('text_of_comment')
-    coment = Coment(post_id=post_id, user_id=2, text=text_of_comment)
-    db.session.add(coment)
-    db.session.commit()
-    return str(coment)
+    coment = Coment.query.filter_by(post_id=post_id, user_id=user.id).first()
+    if coment:
+        return jsonify({'error': 'you added comment to this post',
+                        'post_id': post_id})
+    else:
+        coment = Coment(post_id=post_id, user_id=user.id, text=text_of_comment)
+        db.session.add(coment)
+        db.session.commit()
+        return jsonify(coment.to_dict())
 
 
 @app.route('/ShowComment')
@@ -210,11 +272,17 @@ def ShowComment():
     post_id = request.args.get('post_id')
     coment = Coment.query.filter_by(post_id=post_id).all()
     if coment:
+        user_id_all= []
+        for i in coment:
+            user_id_all.append(i.user_id)
+        result = UserDb.query.filter(UserDb.id.in_(user_id_all)).all()
+        who_create_comment = [item.Tostring for item in result]
         comment = [
             item.to_dict() for item in coment]
-        return jsonify({'comment': comment})
+        return jsonify({'comment': comment,
+                        'who_add_comment': who_create_comment})
     else:
-        return 'This post does not has any comments'
+        return jsonify({'error': 'this post dont have comments'})
 
 
 @app.route('/LogOut')

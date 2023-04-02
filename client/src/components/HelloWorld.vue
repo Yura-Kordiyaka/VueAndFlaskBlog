@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <div class="container">
+    <div class="container_main">
       <h1>Search</h1>
       <form class="Form">
         <input type="text" v-model="query">
@@ -75,7 +75,7 @@ export default {
 .count {
   font-size: 30px;
 }
-.container {
+.container_main {
   text-align: center;
 }
 strong {

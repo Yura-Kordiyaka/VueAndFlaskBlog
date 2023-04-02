@@ -1,20 +1,29 @@
 <template>
-  <div>
-    <div class="container">
-      <h1>Login</h1>
+  <div class="global">
+    <div class="container_for_form">
       <form class="form">
-        <label for="email">Enter your email: </label>
-        <input v-model=email type="email" name="email" id="email" required>
-        <span v-if="emailError">{{ emailError }}</span>
-        <label for="password">Enter your password: </label>
-        <input v-model=password type="password" name="password" id="password" required>
-        <span v-if="passwordError">{{ passwordError }}</span>
-        <button class="btn" @click.prevent="getData">Submit</button>
+        <h1 class="from_tittle">Login in</h1>
+        <div class="form_group">
+          <input class="form_input" v-model=email type="email" name="email" id="email" required>
+          <label class="form_label" for="email">email</label>
+        </div>
+        <div class="error">
+          <span class="error_email" v-if="emailError">{{ emailError }}</span>
+        </div>
+        <div class="form_group">
+          <input class="form_input" v-model=password type="password" name="password" id="password" required>
+          <label class="form_label" for="password">password</label>
+        </div>
+        <div class="error">
+          <span class="error_password" v-if="passwordError">{{ passwordError }}</span>
+        </div>
+        <button class="form_button" @click.prevent="getData">Login in</button>
       </form>
-    </div>
-    <div class="window" v-show="this.path==='/Authorization'">
-      <h3>User was authorization successfully please login in</h3>
-      <button @click="Close">Close this Window</button>
+
+      <div class="window" v-show="this.path==='/Authorization'">
+        <h3>User was authorization successfully please login in</h3>
+        <button @click="Close">Close this Window</button>
+      </div>
     </div>
   </div>
 
@@ -23,6 +32,7 @@
 <script>
 import axios from "axios";
 import {required, minLength} from 'vuelidate/lib/validators'
+import "@/assets/login.css"
 
 export default {
 
@@ -51,6 +61,10 @@ export default {
         if (this.status === 'successfully') {
           localStorage.setItem('token', response.data.token)
           this.$router.push(`/UserPage`)
+        } else {
+          alert('incorrect data')
+          this.password = ''
+          this.email = ''
         }
       } else {
         alert('incorrect data')
@@ -97,59 +111,75 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>
-.window {
-  height: auto;
-  width: auto;
-  background: black;
-}
-
-.window button {
-  padding: 10px 10px 10px 10px;
-}
 
 
-label {
-  margin-top: 550px;
-  color: white;
-}
+/*.main {*/
+/*  border: #3A7734 solid 10px;*/
+/*  width: 600px;*/
+/*  height: 600px;*/
+/*  box-shadow: 10px 10px 30px 10px darkgreen;*/
 
-input[type=password], input[type=email] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border-radius: 40px;
-}
+/*}*/
 
-.btn {
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border-radius: 40px;
+/*.container {*/
+/*  margin-top: 10px;*/
+/*}*/
 
-}
 
-.container h1 {
-  color: white;
-  margin-left: auto;
-  margin-right: auto;
-}
+/*.container h1 {*/
+/*  margin: 10px 0;*/
+/*  text-align: center;*/
+/*  font-size: 60px;*/
+/*}*/
 
-.container {
-  width: 50%;
-  vertical-align: center;
-  border: 1px solid;
-  border-radius: 30px;
-  padding: 30px;
-  background: black;
-}
+/*.container label {*/
+/*  display: block;*/
+/*  margin: 10px 0 20px 0;*/
+/*  font-size: 30px;*/
+/*  text-align: center;*/
+/*}*/
 
-body {
-  background: black;
-}
+/*.container input {*/
+/*  background: white;*/
+/*  font-size: 30px;*/
+/*  display: block;*/
+/*  margin: 0 auto 30px;*/
+/*  border: black solid 3px;*/
+/*  border-radius: 20px;*/
+/*  padding: 5px 20px;*/
+/*  width: 90%;*/
+/*}*/
+
+/*.container input:focus {*/
+/*  color: black;*/
+/*  border: darkgreen solid 1px;*/
+/*  box-shadow: 5px 5px 5px 5px black;*/
+/*}*/
+
+/*.container button {*/
+/*  font-size: 31px;*/
+/*  display: block;*/
+/*  margin: 0 auto;*/
+/*  border: black solid 3px;*/
+/*  width: 91%;*/
+/*  border-radius: 20px;*/
+/*}*/
+
+/*.container button:hover {*/
+/*  color: white;*/
+/*  background: black;*/
+/*}*/
+
+/*.container .error {*/
+/*  display: block;*/
+/*  color: #9C1A1C;*/
+/*  margin-left: 40px;*/
+/*  font-size: 20px;*/
+/*  margin-bottom: 30px;*/
+/*}*/
+
+
 </style>
