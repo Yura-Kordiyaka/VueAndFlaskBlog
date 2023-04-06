@@ -16,10 +16,10 @@ import {faUser,faThumbsUp,faThumbsDown,faUserSecret} from '@fortawesome/free-sol
 /* add icons to the library */
 library.add(faUser,faThumbsUp, faUserSecret,faThumbsDown)
 
-createApp(App)
-    .component('font-awesome-icon', FontAwesomeIcon)
-    .mount('#app')
+// createApp(App)
+//     .component('font-awesome-icon', FontAwesomeIcon)
+//     .mount('#app')
 
 axios.defaults.baseURL = "http://localhost:5000/";
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')

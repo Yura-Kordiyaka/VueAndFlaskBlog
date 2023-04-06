@@ -73,34 +73,30 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .dropdown {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .dropdown-toggle {
-  background-color: #f8f9fa;
-  color: #212529;
+    background-color: #f8f9fa;
+    color: #212529;
 }
 
 .dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1;
-  display: block;
-  min-width: 150px;
-  padding: 0.5rem 0;
-  color: #212529;
-  text-align: left;
-  list-style: none;
-  background-color: #fff;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    display: block;
+    min-width: 150px;
+    padding: 0.5rem 0;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
 }
-
-
-
-
 
 
 .navbar {
@@ -155,7 +151,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .window_from_login {
     position: relative;
-    width: 100%;
+    width: inherit;
     margin-top: 50px;
     height: 100px;
     text-align: center;
@@ -183,42 +179,7 @@ h1, h2, h3, h4, h5, h6 {
     transition: 0.3s;
 }
 
-/*.dropth {*/
-/*    position: relative;*/
-/*}*/
-/*.dropth .sub-menu {*/
-/*  display: none;*/
-/*  position: absolute;*/
-/*  top: 100%;*/
-/*  left: 0;*/
-/*  z-index: 1;*/
-/*  padding: 0;*/
-/*  margin: 0;*/
-/*  list-style: none;*/
-/*  background-color: #fff;*/
-/*  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/
-/*}*/
 
-/*.dropth:hover .sub-menu {*/
-/*  display: block;*/
-/*}*/
-
-/*.dropth .sub-menu li {*/
-/*  padding: 10px;*/
-/*}*/
-
-/*.dropth .sub-menu li button {*/
-/*  display: block;*/
-/*  width: 100%;*/
-/*  text-align: left;*/
-/*  border: none;*/
-/*  background-color: transparent;*/
-/*  cursor: pointer;*/
-/*}*/
-
-/*.dropth .sub-menu li button:hover {*/
-/*  background-color: #f2f2f2;*/
-/*}*/
 
 .container_post {
     width: 100%;
@@ -274,24 +235,17 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 50px;
     text-align: center;
     width: 100%;
-    /*position: absolute;*/
-    /*left: 30%;*/
-    /*transform: translate(-30%, 0);*/
 
 }
 
 .one_post {
-    /*min-width: 400px;*/
-    /*border: #3A7734 solid 3px;*/
     width: 100%;
-    /*height: inherit;*/
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: start;
     flex-wrap: wrap;
 
-    /*margin-top: 10px;*/
 
 }
 
@@ -306,9 +260,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 30px;
     margin-bottom: 30px;
     box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1), inset 0px 0px 0px 1px rgba(209, 213, 219, 1);
-    /*border: #3A7734 solid 3px;*/
 
-    /*box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.05), inset 0px 0px 0px 1px rgba(209, 213, 219, 1);*/
 }
 
 .one_post li:hover {
@@ -331,7 +283,6 @@ h1, h2, h3, h4, h5, h6 {
     width: 600px;
     height: 300px;
     overflow: auto;
-    /*box-shadow: -20px 0 10px -20px rgba(0, 0, 0, 0.45) inset, 20px 0 10px -20px rgba(0, 0, 0, 0.45) inset;*/
     word-wrap: break-word;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -409,13 +360,11 @@ h1, h2, h3, h4, h5, h6 {
     height: 50px;
     resize: none;
     font-size: 20px;
-    /*border: solid black 3px;*/
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     overflow: auto;
     margin-bottom: 10px;
     padding: 10px;
 
-    /*box-shadow: inset 0 0 35px 5px rgba(0, 0, 0, 0.25), inset 0 2px 1px 1px rgba(255, 255, 255, 0.9), inset 0 -2px 1px rgba(0, 0, 0, 0.25);*/
 }
 
 
@@ -427,9 +376,7 @@ h1, h2, h3, h4, h5, h6 {
     color: black;
     font-size: 15px;
     display: block;
-    /*padding: 10px;*/
 
-    /*margin-bottom: 100px;*/
 }
 
 .add_comment button:hover {
@@ -452,7 +399,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
 }
 
-/**/
+
 
 .btn_show_comment {
     margin-top: 20px;
@@ -471,11 +418,6 @@ h1, h2, h3, h4, h5, h6 {
 .show_comment {
     width: 600px;
     margin: 0 auto;
-    /*overflow-y:scroll;*/
-    /*border: black solid 3px;*/
-
-    /*justify-content: left;*/
-    /*text-align: left;*/
 }
 
 
@@ -522,4 +464,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .edit_post button:hover {
     opacity: 0.5;
+}
+
+
+@media (max-width: 992px) {
+    .container_main .navbar .container h1 {
+        font-size: 20px;
+
+    }
+
+    .container_main .navbar-menu li button {
+        font-size: 20px;
+        padding: 0 20px;
+    }
 }

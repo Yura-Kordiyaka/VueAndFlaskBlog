@@ -1,19 +1,6 @@
 <template>
   <div class="main">
-    <!--    <div class="container_main">-->
-    <!--      <h1>Authorization</h1>-->
-    <!--      <label for="name">Enter your name</label>-->
-    <!--      <input v-model=name type="text" name="name" id="name" required>-->
-    <!--      <span class="error" v-if="NameError">{{ NameError }}</span>-->
-    <!--      <label for="email">Enter your email</label>-->
-    <!--      <input v-model=email type="email" name="email" id="email" required>-->
-    <!--      <span class="error" v-if="EmailError">{{ EmailError }}</span>-->
-    <!--      <label for="password">Enter your password</label>-->
-    <!--      <input v-model=password type="password" name="password" id="password" required>-->
-    <!--      <span class="error" v-if="PasswordError">{{ PasswordError }}</span>-->
-    <!--      <button @click.prevent="CreateUser">Submit</button>-->
-    <!--    </div>-->
-    <form class="form">
+    <form class="form_authorization">
       <h1 class="from_tittle">Authorization</h1>
       <div class="form_group">
         <input class="form_input" v-model=name type="text" name="name" id="name" required>
@@ -205,7 +192,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 90vh;
 }
 
-.form {
+.form_authorization {
   width: 500px;
   height: 500px;
   padding: 32px;

@@ -2,7 +2,7 @@
   <div class="container_main">
     <div class="navbar">
       <div class="container">
-        <h1 class="navbar-brand">It's user page Hello</h1>
+        <h1 class="navbar-brand">It's user page</h1>
         <div class="navbar-wrap">
           <div class="navbar-menu">
             <ul>

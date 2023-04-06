@@ -1,7 +1,7 @@
 <template>
   <div class="global">
     <div class="container_for_form">
-      <form class="form">
+      <form class="form_authorization">
         <h1 class="from_tittle">Login in</h1>
         <div class="form_group">
           <input class="form_input" v-model=email type="email" name="email" id="email" required>

@@ -40,7 +40,6 @@
           Next
         </a>
       </div>
-    </div>
     <div class="posts">
       <ul class="one_post">
         <li v-for="(post, index) in paginatedItems" :key="index">
@@ -107,6 +106,7 @@
         </li>
       </ul>
     </div>
+    </div>
   </div>
 
 </template>
@@ -158,7 +158,7 @@ export default {
       this.all_post = response.data.all_post
       this.user_id = JSON.parse(atob(this.token.split('.')[1]))
       this.user_id = Number(this.user_id.sub)
-      console.log(this.user_id)
+      // console.log(this.user_id)
     },
     changePage(page) {
       this.currentPage = page;

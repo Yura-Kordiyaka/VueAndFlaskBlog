@@ -58,9 +58,7 @@ def token_required(f):
         except (jwt.InvalidTokenError, Exception) as e:
             print(e)
             return jsonify(invalid_msg), 401
-        # # Perform authentication here
-        # # If authentication fails, return 401 Unauthorized response
-        # # Otherwise, call the original view function with the provided argument
+
 
     return _verify
 
@@ -114,7 +112,6 @@ def CreatePost(user):
     name_of_post = data.get('name_of_post')
     text_of_post = data.get('text_of_post')
     category_of_post = data.get('category_of_post')
-    # тут має бути session і передавати сесію потрібно
     if user:
         post = Post(user_id=user.id, like=0, dislike=0, name_of_post=name_of_post, text_of_post=text_of_post,
                     category=category_of_post)
@@ -129,7 +126,6 @@ def CreatePost(user):
 @token_required
 def ShowAllPost(user):
     user = user
-    # all_post = Post.query.all()
     all_post = Post.query.order_by(Post.like.desc()).all()
     all_post = [
         item.to_dict() for item in all_post]
@@ -202,7 +198,6 @@ def AddLike(user):
 def AddDislike(user):
     user = user
     post_id = request.args.get('post_id')
-    # post = Post.query.filter_by(id=int(id)).first()
     dislike = Dislike.query.filter_by(post_id=post_id, user_id=user.id).first()
     like = Likes.query.filter_by(post_id=post_id, user_id=user.id).first()
     if dislike:

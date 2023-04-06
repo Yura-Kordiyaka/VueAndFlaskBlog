@@ -75,10 +75,19 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  position: relative;
+  /*height: 90vh;*/
 }
 
-.form {
+.container_for_form{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%,60%);
+}
+
+
+.form_authorization {
   width: 500px;
   height: 400px;
   padding: 32px;
@@ -182,4 +191,13 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #0071f0;
   cursor: pointer;
   transition: 0.3s;
+}
+@media screen and (max-width: 350px){
+    .global .container_for_form .form_authorization{
+      max-width: 200px;
+      max-height: 600px;
+    }
+  .global .container_for_form .form_authorization .error{
+    font-size: 12px;
+  }
 }
